@@ -62,7 +62,7 @@ python scripts/01_select_countries.py
 
 ## Autor
 
-Luis
+Ignacio
 
 ## Licencia
 
