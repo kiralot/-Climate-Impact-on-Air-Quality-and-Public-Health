@@ -15,23 +15,98 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-    /* Main title styling */
+    /* Dark theme base - Complete Streamlit override */
+    .stApp {
+        background-color: #0f1419;
+    }
+    
+    .main {
+        background-color: #0f1419;
+    }
+    
+    /* Override Streamlit default backgrounds */
+    .block-container {
+        background-color: #0f1419;
+        padding-top: 2rem;
+    }
+    
+    /* Hero section container with animation */
+    .hero-section {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+        animation: fadeInUp 0.8s ease-out;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+        animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Main title styling with animation */
     .main-title {
-        font-size: 2.8rem;
+        font-size: 3rem;
         font-weight: 700;
-        background: linear-gradient(120deg, #2193b0, #6dd5ed);
+        background: linear-gradient(120deg, #667eea, #764ba2, #f093fb, #667eea);
+        background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-align: center;
-        padding: 1rem 0;
-        margin-bottom: 0.5rem;
+        padding: 0.5rem 0;
+        margin-bottom: 1rem;
+        animation: gradientShift 4s ease infinite;
+        position: relative;
+        z-index: 1;
+        letter-spacing: -0.5px;
+    }
+    
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% center; }
+        50% { background-position: 100% center; }
     }
     
     .subtitle {
         text-align: center;
-        color: #64748b;
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
+        color: #e2e8f0;
+        font-size: 1.2rem;
+        margin-bottom: 0;
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+        line-height: 1.6;
+        animation: fadeIn 1s ease-out 0.3s both;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
     
     /* Metric cards */
@@ -54,42 +129,100 @@ st.markdown("""
         font-weight: 700 !important;
     }
     
-    /* Sidebar styling */
+    /* Sidebar styling - Professional purple theme */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
-        color: white;
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
     }
     
     section[data-testid="stSidebar"] .stMarkdown {
-        color: white;
+        color: #ffffff !important;
     }
     
     section[data-testid="stSidebar"] label {
-        color: white !important;
+        color: #ffffff !important;
         font-weight: 600;
+        font-size: 0.95rem;
     }
     
-    /* Tabs styling */
+    section[data-testid="stSidebar"] h2 {
+        color: #ffffff !important;
+    }
+    
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] div {
+        color: #ffffff !important;
+    }
+    
+    /* Sidebar widgets styling */
+    section[data-testid="stSidebar"] .stMultiSelect label,
+    section[data-testid="stSidebar"] .stSlider label {
+        color: #ffffff !important;
+    }
+    
+    /* Slider styling - Remove blue box and apply dark theme */
+    section[data-testid="stSidebar"] .stSlider {
+        background-color: transparent !important;
+    }
+    
+    section[data-testid="stSidebar"] .stSlider > div {
+        background-color: transparent !important;
+    }
+    
+    section[data-testid="stSidebar"] .stSlider [data-baseweb="slider"] {
+        background-color: transparent !important;
+    }
+    
+    /* Slider track - inactive (gray) */
+    section[data-testid="stSidebar"] .stSlider [data-baseweb="slider"] > div {
+        background-color: #334155 !important;
+    }
+    
+    /* Slider track - active (blue/purple) */
+    section[data-testid="stSidebar"] .stSlider [data-baseweb="slider"] [data-baseweb="slider-track"] {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+    }
+    
+    section[data-testid="stSidebar"] .stSlider [data-baseweb="slider"] > div > div {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+    }
+    
+    /* Slider thumb */
+    section[data-testid="stSidebar"] .stSlider [role="slider"] {
+        background-color: #667eea !important;
+        border: 2px solid #764ba2 !important;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4) !important;
+    }
+    
+    /* Slider values (min/max numbers) */
+    section[data-testid="stSidebar"] .stSlider [data-testid="stTickBarMin"],
+    section[data-testid="stSidebar"] .stSlider [data-testid="stTickBarMax"],
+    section[data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] span {
+        color: #ffffff !important;
+    }
+    
+    /* Tabs styling - Dark theme */
     .stTabs [data-baseweb="tab-list"] {
         gap: 2rem;
-        background-color: #f8fafc;
+        background-color: #1e293b;
         padding: 1rem;
         border-radius: 12px;
     }
     
     .stTabs [data-baseweb="tab"] {
         height: 3.5rem;
-        background-color: white;
+        background-color: #0f172a;
         border-radius: 8px;
         padding: 0 1.5rem;
         font-weight: 600;
-        border: 2px solid #e2e8f0;
+        border: 2px solid #334155;
+        color: #cbd5e1;
         transition: all 0.3s ease;
     }
     
     .stTabs [data-baseweb="tab"]:hover {
-        background-color: #f1f5f9;
-        border-color: #cbd5e1;
+        background-color: #1e293b;
+        border-color: #475569;
     }
     
     .stTabs [aria-selected="true"] {
@@ -98,25 +231,28 @@ st.markdown("""
         border-color: transparent;
     }
     
-    /* Cards for content sections */
+    /* Cards for content sections - Dark theme */
     .content-card {
-        background: white;
+        background: #1e293b;
         padding: 1.5rem;
         border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         margin-bottom: 1.5rem;
+        border: 1px solid #334155;
     }
     
     /* Info boxes */
     .stAlert {
         border-radius: 12px;
-        border-left: 4px solid #3b82f6;
+        border-left: 4px solid #667eea;
+        background-color: #1e293b;
     }
     
     /* Dataframes */
     .dataframe {
         border-radius: 8px;
         overflow: hidden;
+        background-color: #1e293b;
     }
     
     /* Buttons */
@@ -141,9 +277,9 @@ st.markdown("""
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
     
-    /* Headers */
-    h1, h2, h3 {
-        color: #1e293b;
+    /* Headers - Dark theme with white text */
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff !important;
     }
     
     h2 {
@@ -152,14 +288,119 @@ st.markdown("""
         margin-top: 2rem;
     }
     
-    /* Selectbox styling */
-    .stSelectbox > div > div {
-        border-radius: 8px;
+    /* All text elements white */
+    p, label, span, div {
+        color: #ffffff !important;
     }
     
-    /* Multiselect */
+    /* Radio buttons and slider labels - white text */
+    .stRadio label, .stSlider label {
+        color: #ffffff !important;
+        font-weight: 500;
+    }
+    
+    /* Radio button options */
+    .stRadio > label > div[role="radiogroup"] > label {
+        color: #ffffff !important;
+    }
+    
+    .stRadio > label > div[role="radiogroup"] > label > div {
+        color: #ffffff !important;
+    }
+    
+    /* Slider values and all numbers */
+    .stSlider [data-testid="stTickBarMin"],
+    .stSlider [data-testid="stTickBarMax"],
+    .stSlider span {
+        color: #ffffff !important;
+    }
+    
+    /* Selectbox styling - Dark theme with white text */
+    .stSelectbox > div > div {
+        border-radius: 8px;
+        background-color: #1e293b;
+        border-color: #334155;
+    }
+    
+    .stSelectbox label {
+        color: #ffffff !important;
+        font-weight: 500;
+    }
+    
+    /* Multiselect - Dark theme with white text */
     .stMultiSelect > div > div {
         border-radius: 8px;
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+    }
+    
+    .stMultiSelect label {
+        color: #ffffff !important;
+        font-weight: 500;
+    }
+    
+    /* Multiselect input container */
+    .stMultiSelect [data-baseweb="select"] > div {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+    }
+    
+    /* Selected country tags - purple gradient like buttons */
+    .stMultiSelect [data-baseweb="tag"] {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+    
+    /* Tag close button (X) */
+    .stMultiSelect [data-baseweb="tag"] svg {
+        fill: #ffffff !important;
+    }
+    
+    /* Input text color */
+    input, select, textarea {
+        color: #ffffff !important;
+        background-color: #1e293b !important;
+    }
+    
+    /* Dropdown options - Dark background with visible text */
+    [role="listbox"] {
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
+    }
+    
+    [role="option"] {
+        color: #ffffff !important;
+        background-color: #1e293b !important;
+    }
+    
+    [role="option"]:hover {
+        background-color: #334155 !important;
+        color: #ffffff !important;
+    }
+    
+    /* Selectbox dropdown when open */
+    [data-baseweb="popover"] {
+        background-color: #1e293b !important;
+    }
+    
+    [data-baseweb="menu"] {
+        background-color: #1e293b !important;
+    }
+    
+    [data-baseweb="menu"] li {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
+    }
+    
+    [data-baseweb="menu"] li:hover {
+        background-color: #334155 !important;
+    }
+    
+    /* Multiselect dropdown options */
+    [data-baseweb="select"] [role="option"] {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -197,8 +438,12 @@ def load_data():
 df, corr_df = load_data()
 
 # Hero Section
-st.markdown('<h1 class="main-title">🌍 Climate & Health Analytics Platform</h1>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Comprehensive analysis of climate-mortality relationships across 49 countries (1990-2019)</p>', unsafe_allow_html=True)
+st.markdown('''
+<div class="hero-section">
+    <h1 class="main-title">Climate & Health Analytics Platform</h1>
+    <p class="subtitle">Comprehensive analysis of climate-mortality relationships across 49 countries (1990-2019)</p>
+</div>
+''', unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -207,7 +452,7 @@ st.sidebar.header("Filters")
 selected_countries = st.sidebar.multiselect(
     "Select Countries",
     options=sorted(df['Country/Territory'].unique()),
-    default=['Germany', 'United States', 'China', 'Brazil']
+    default=['United States', 'Germany', 'India', 'Italy', 'Japan', 'United Kingdom']
 )
 
 year_range = st.sidebar.slider(
@@ -250,23 +495,50 @@ with tab2:
         ['Temperature_C', 'Precipitation_mm', 'Surface_Pressure_Pa', 'Wind_Speed_ms']
     )
     
+    # Aggregate data to ensure one value per country-year
+    climate_plot_data = filtered_df.groupby(['Country/Territory', 'Year'])[climate_var].mean().reset_index()
+    
     fig = px.line(
-        filtered_df,
+        climate_plot_data,
         x='Year',
         y=climate_var,
         color='Country/Territory',
         title=f'{climate_var} Evolution Over Time'
     )
+    fig.update_layout(
+        template='plotly_dark',
+        paper_bgcolor='#0e1117',
+        plot_bgcolor='#1e293b',
+        font=dict(color='#ffffff', size=12),
+        title_font=dict(color='#ffffff', size=16),
+        height=500,
+        xaxis=dict(gridcolor='#334155', color='#ffffff'),
+        yaxis=dict(gridcolor='#334155', color='#ffffff'),
+        legend=dict(font=dict(color='#ffffff'))
+    )
     st.plotly_chart(fig, use_container_width=True)
     
     st.subheader("Temperature Distribution by Country")
-    fig2 = px.box(
+    fig2 = px.violin(
         filtered_df,
         x='Country/Territory',
         y='Temperature_C',
-        title='Temperature Distribution'
+        title='Temperature Distribution',
+        box=True,
+        points='outliers',
+        color='Country/Territory'
     )
-    fig2.update_xaxes(tickangle=45)
+    fig2.update_layout(
+        template='plotly_dark',
+        paper_bgcolor='#0e1117',
+        plot_bgcolor='#1e293b',
+        font=dict(color='#ffffff', size=12),
+        title_font=dict(color='#ffffff', size=16),
+        showlegend=False,
+        height=600,
+        xaxis=dict(tickangle=45, gridcolor='#334155', color='#ffffff'),
+        yaxis=dict(gridcolor='#334155', color='#ffffff')
+    )
     st.plotly_chart(fig2, use_container_width=True)
 
 with tab3:
@@ -281,12 +553,26 @@ with tab3:
     
     rate_col = f'{selected_cause}_Rate_per_100k'
     
+    # Aggregate data to ensure one value per country-year
+    mortality_plot_data = filtered_df.groupby(['Country/Territory', 'Year'])[rate_col].mean().reset_index()
+    
     fig = px.line(
-        filtered_df,
+        mortality_plot_data,
         x='Year',
         y=rate_col,
         color='Country/Territory',
         title=f'{selected_cause} - Death Rate per 100k'
+    )
+    fig.update_layout(
+        template='plotly_dark',
+        paper_bgcolor='#0e1117',
+        plot_bgcolor='#1e293b',
+        font=dict(color='#ffffff', size=12),
+        title_font=dict(color='#ffffff', size=16),
+        height=500,
+        xaxis=dict(gridcolor='#334155', color='#ffffff'),
+        yaxis=dict(gridcolor='#334155', color='#ffffff'),
+        legend=dict(font=dict(color='#ffffff'))
     )
     st.plotly_chart(fig, use_container_width=True)
     
@@ -297,9 +583,20 @@ with tab3:
         x=avg_by_country.index,
         y=avg_by_country.values,
         labels={'x': 'Country', 'y': 'Average Rate per 100k'},
-        title=f'Average {selected_cause} Rate by Country'
+        title=f'Average {selected_cause} Rate by Country',
+        color=avg_by_country.values,
+        color_continuous_scale='Viridis'
     )
-    fig2.update_xaxes(tickangle=45)
+    fig2.update_layout(
+        template='plotly_dark',
+        paper_bgcolor='#0e1117',
+        plot_bgcolor='#1e293b',
+        font=dict(color='#ffffff', size=12),
+        title_font=dict(color='#ffffff', size=16),
+        xaxis=dict(tickangle=45, gridcolor='#334155', color='#ffffff'),
+        yaxis=dict(gridcolor='#334155', color='#ffffff'),
+        height=600
+    )
     st.plotly_chart(fig2, use_container_width=True)
 
 with tab4:
@@ -318,16 +615,33 @@ with tab4:
         
         # La figura se ve rara porque los valores son negativos 
     
+    labels = [f"{row['Cause'][:30]} vs {row['Climate_Variable']}" for _, row in top_corr.iterrows()]
+    
     fig = px.bar(
         top_corr,
         x='Correlation',
-        y=[f"{row['Cause'][:25]} vs {row['Climate_Variable']}" for _, row in top_corr.iterrows()],
+        y=labels,
         orientation='h',
         title=f'Top {top_n} Climate-Mortality Correlations ({corr_type})',
         color='Correlation',
-        color_continuous_scale='RdBu_r'
+        color_continuous_scale='RdBu_r',
+        text='Correlation'
     )
-    fig.update_layout(height=600)
+    fig.update_traces(
+        texttemplate='%{text:.3f}',
+        textposition='outside'
+    )
+    fig.update_layout(
+        template='plotly_dark',
+        paper_bgcolor='#0e1117',
+        plot_bgcolor='#1e293b',
+        font=dict(color='#ffffff', size=11),
+        title_font=dict(color='#ffffff', size=16),
+        height=max(600, top_n * 25),
+        yaxis=dict(tickfont=dict(size=10, color='#ffffff'), color='#ffffff'),
+        xaxis=dict(gridcolor='#334155', color='#ffffff'),
+        margin=dict(l=300, r=50, t=80, b=50)
+    )
     st.plotly_chart(fig, use_container_width=True)
     
     st.subheader("Correlation Heatmap - Top Causes")
@@ -344,9 +658,24 @@ with tab4:
         heatmap_data,
         labels=dict(x="Climate Variable", y="Cause of Death", color="Correlation"),
         color_continuous_scale='RdBu_r',
-        aspect="auto"
+        aspect="auto",
+        text_auto='.2f'
+    )
+    fig_heatmap.update_layout(
+        template='plotly_dark',
+        paper_bgcolor='#0e1117',
+        plot_bgcolor='#1e293b',
+        font=dict(color='#ffffff', size=12),
+        title_font=dict(color='#ffffff', size=16),
+        height=600,
+        xaxis=dict(side='bottom', color='#ffffff'),
+        yaxis=dict(tickfont=dict(size=11, color='#ffffff'), color='#ffffff')
+    )
+    fig_heatmap.update_traces(
+        text=heatmap_data.values,
+        texttemplate='%{text:.2f}',
+        textfont=dict(size=10)
     )
     st.plotly_chart(fig_heatmap, use_container_width=True)
 
 st.sidebar.markdown("---")
-st.sidebar.info("Dashboard created with Streamlit")
