@@ -7,11 +7,162 @@ import numpy as np
 import os
 
 st.set_page_config(
-    page_title="Climate Impact on Public Health",
+    page_title="Climate & Health Analytics",
     page_icon="🌍",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+st.markdown("""
+    <style>
+    /* Main title styling */
+    .main-title {
+        font-size: 2.8rem;
+        font-weight: 700;
+        background: linear-gradient(120deg, #2193b0, #6dd5ed);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        padding: 1rem 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+        text-align: center;
+        color: #64748b;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Metric cards */
+    .stMetric {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1.2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: white;
+    }
+    
+    .stMetric label {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 600;
+    }
+    
+    .stMetric .metric-value {
+        color: white !important;
+        font-size: 2rem !important;
+        font-weight: 700 !important;
+    }
+    
+    /* Sidebar styling */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+    }
+    
+    section[data-testid="stSidebar"] .stMarkdown {
+        color: white;
+    }
+    
+    section[data-testid="stSidebar"] label {
+        color: white !important;
+        font-weight: 600;
+    }
+    
+    /* Tabs styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 2rem;
+        background-color: #f8fafc;
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        height: 3.5rem;
+        background-color: white;
+        border-radius: 8px;
+        padding: 0 1.5rem;
+        font-weight: 600;
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: #f1f5f9;
+        border-color: #cbd5e1;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white !important;
+        border-color: transparent;
+    }
+    
+    /* Cards for content sections */
+    .content-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Info boxes */
+    .stAlert {
+        border-radius: 12px;
+        border-left: 4px solid #3b82f6;
+    }
+    
+    /* Dataframes */
+    .dataframe {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    /* Buttons */
+    .stButton>button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.5rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* Plotly charts */
+    .js-plotly-plot {
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* Headers */
+    h1, h2, h3 {
+        color: #1e293b;
+    }
+    
+    h2 {
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 0.5rem;
+        margin-top: 2rem;
+    }
+    
+    /* Selectbox styling */
+    .stSelectbox > div > div {
+        border-radius: 8px;
+    }
+    
+    /* Multiselect */
+    .stMultiSelect > div > div {
+        border-radius: 8px;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROCESSED_DATA_DIR = os.path.join(BASE_DIR, 'data', 'processed')
@@ -45,8 +196,11 @@ def load_data():
 
 df, corr_df = load_data()
 
-st.title("🌍 Climate Impact on Public Health (1990-2019)")
-st.markdown("Analysis of climate variables and mortality rates across 49 countries")
+# Hero Section
+st.markdown('<h1 class="main-title">🌍 Climate & Health Analytics Platform</h1>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">Comprehensive analysis of climate-mortality relationships across 49 countries (1990-2019)</p>', unsafe_allow_html=True)
+
+st.markdown("---")
 
 st.sidebar.header("Filters")
 
