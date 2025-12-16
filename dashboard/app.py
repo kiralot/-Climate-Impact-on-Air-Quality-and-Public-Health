@@ -900,12 +900,35 @@ with tab6:
     </div>
     """, unsafe_allow_html=True)
     
-    # Load model predictions and model
+    # Train model on-the-fly with caching to avoid compatibility issues
+    @st.cache_resource
+    def train_rf_model():
+        from sklearn.ensemble import RandomForestRegressor
+        from sklearn.model_selection import train_test_split
+        
+        climate_features = ['Temperature_C', 'Precipitation_mm', 'Surface_Pressure_Pa', 'Dewpoint_K', 'Wind_Speed_ms']
+        target = 'Neoplasms_Rate_per_100k'
+        
+        X = df[climate_features]
+        y = df[target]
+        
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        
+        model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42, n_jobs=-1)
+        model.fit(X_train, y_train)
+        
+        y_pred = model.predict(X_test)
+        
+        predictions_df = pd.DataFrame({
+            'Actual': y_test,
+            'Predicted': y_pred,
+            'Error': y_test - y_pred
+        })
+        
+        return model, predictions_df
+    
     try:
-        import joblib
-        predictions_df = pd.read_csv(os.path.join(RESULTS_DIR, 'model_predictions.csv'))
-        model_path = os.path.join(BASE_DIR, 'models', 'rf_neoplasms_model.pkl')
-        model = joblib.load(model_path)
+        model, predictions_df = train_rf_model()
         
         # Model Performance Metrics
         st.subheader("Model Performance Metrics")
